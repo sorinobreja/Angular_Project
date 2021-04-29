@@ -1,0 +1,27 @@
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">Nume</th>
+            <th scope="col">Prenume</th>
+            <th scope="col">Data nasterii</th>
+            <th scope="col">Gen</th>
+            <th scope="col">Actiuni</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let patient of patients">
+            <th scope="row">{{ patient.orderNumber }}</th>
+            <td>
+                {{ patient.familyName }}
+            </td>
+            <td>{{ patient.givenName }}</td>
+            <td>{{ patient.dateOfBirth }}</td>
+            <td>{{ patient.gender }}</td>
+            <td>
+                <app-remove-patient [patientOrderNumber]="patient.orderNumber"></app-remove-patient>
+                <app-edit-patient [patientOrderNumber]="patient.orderNumber"></app-edit-patient>
+            </td>
+        </tr>
+    </tbody>
+</table>

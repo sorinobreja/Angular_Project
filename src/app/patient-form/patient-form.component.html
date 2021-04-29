@@ -1,0 +1,95 @@
+<ng-template #content let-modal>
+    <div class="modal-header">
+        <h4 class="modal-title" id="modal-basic-title">Patient details</h4>
+        <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <form [formGroup]="patientForm" (ngSubmit)="onSubmit()">
+    <div class="modal-body"> 
+            <label>Family Name:</label>
+            <input type="text" formControlName="familyName" name="familyName" required>
+            <div *ngIf="f.familyName.invalid && (f.familyName.dirty || f.familyName.touched)" class="alert alert-danger">      
+                <div *ngIf="f.familyName.errors.required">
+                    Family Name is required.
+                </div>
+            </div>
+            <hr>
+            
+
+            <label>Given Name:</label>
+            <input type="text" formControlName="givenName" name="givenName" required>
+            <div *ngIf="f.givenName.invalid && (f.givenName.dirty || f.givenName.touched)" class="alert alert-danger">
+                <div *ngIf="f.givenName.errors.required">
+                    Given Name is required.
+                </div>
+            </div>
+            <hr>
+            
+
+            <label>Date of birth:</label>
+            <input class="form-control" type="date"  formControlName="dateOfBirth" style="width: 250px;" required>
+            <!-- <div class="text-danger" *ngIf="(patientFormControls.birthDate.touched && patientFormControls.birthDate.invalid)">
+                *Data Nasterii trebuie sa fie mai mica decat data curenta!
+            </div> -->
+            
+            <div *ngIf="f.dateOfBirth.invalid && (f.dateOfBirth.dirty || f.dateOfBirth.touched)" class="alert alert-danger">
+                <div *ngIf="f.dateOfBirth.errors.required">
+                    You have to choose your birthdate.
+                </div>
+                <div>
+                    Too young!
+                </div>
+            </div>
+            <hr>
+
+            <label>Gender:</label>
+            <div>
+                <input id="male" type="radio" value="M" formControlName="gender" required>
+                <label for="male">M</label>
+            </div>
+            <div>
+                <input id="female" type="radio" value="F" formControlName="gender" required>
+                <label for="female">F</label>
+            </div>
+            <div *ngIf="f.gender.invalid && (f.gender.dirty || f.gender.touched)" class="alert alert-danger">
+                <div *ngIf="f.gender.errors.required">
+                    You have to choose your gender.
+                </div>
+            </div>
+            <hr>
+
+            <label>CNP:</label>
+            <input type="text" formControlName="cnp">
+            <div *ngIf="f.cnp.invalid && (f.cnp.dirty || f.cnp.touched)" class="alert alert-danger">
+                <div *ngIf="f.cnp.errors.minlength || f.cnp.errors.maxlength">
+                    The CNP must contains 13 characters.
+                </div>
+                <div *ngIf="f.cnp.errors.pattern">
+                    Only Numbers are allowed
+                </div>
+            </div>
+            <hr>
+
+        
+            <label>Phone Number:</label>
+            <input type="text" formControlName="phoneNumber" name="phoneNumber"> 
+            <div *ngIf="f.phoneNumber.invalid && (f.cnp.dirty || f.phoneNumber.touched)" class="alert alert-danger">
+                <div *ngIf="f.phoneNumber.errors.pattern">
+                    Only Numbers are allowed
+                </div>
+            </div>
+            <hr>
+    
+            <label>
+                Order Number:
+                <input type="text" formControlName="orderNumber" placeholder="{{ orderNumber }}" disabled>
+            </label>
+    </div>
+    <div class="modal-footer">
+        <button type="submit" (click)="modal.close('Added')" [disabled]="!patientForm.valid">Add</button>
+    </div>
+    </form>
+   
+</ng-template>
+<button class="btn btn-lg btn-outline-primary" (click)="open(content)">Add a new patient</button>
